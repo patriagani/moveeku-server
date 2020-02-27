@@ -26,13 +26,13 @@ class MovieController {
             watchlink: req.body.watchlink
         }
 
-        axios.get(`${omdbapiURL}${req.params.imdbid}${omdbapiKey}`)
-            .then(function(movie) {
-                obj.data = movie
-                obj.data = movie.Title
+        axios.get(`${omdbapiURL}${req.body.imdbid}${omdbapiKey}`)
+            .then((movie) => {
+                obj.data = movie.data
+                obj.title = movie.data.Title
                 return Movie.create(obj)
             })
-            .then(function(movie) {
+            .then((movie) => {
                 res.status(200).json(movie)
             })
             .catch(function(error){

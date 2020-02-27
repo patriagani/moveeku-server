@@ -5,7 +5,7 @@ const authadmin = require('../middlewares/authadmin')
 
 router.get('/', MovieController.getMovies)
 
-router.post('/:imdbid', authadmin, MovieController.createMovie)
+router.post('/', authadmin, MovieController.createMovie)
 
 router.get('/:movieId', MovieController.getMovie)
 
