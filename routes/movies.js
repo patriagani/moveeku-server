@@ -13,5 +13,7 @@ router.patch('/:movieId', authadmin, MovieController.updateMovie)
 
 router.delete('/:movieId', authadmin, MovieController.deleteMovie)
 
+router.get('/genre/:genre', MovieController.getMovieByGenre)
+
 
 module.exports = router

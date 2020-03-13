@@ -85,6 +85,26 @@ class MovieController {
             })
     }
 
+    static getMovieByGenre(req, res) {
+        Movie.find()
+            .then(function(movies) {
+                let movieArr = []
+                movies.forEach((movie) => {
+                    let genre = movie.data.Genre.split(",")
+                    if (genre.indexOf(req.params.genre) !== -1 || genre.indexOf(` ${req.params.genre}`) !== -1) {
+                        movieArr.push(movie)
+                    }
+                })
+                res.status(200).json(movieArr)
+            })
+            .catch(function(error) {
+                res.status(500).json({
+                    message: "Internal Server Error",
+                    error: error.message
+                })
+            })
+    }
+
 }
 
 module.exports = MovieController

@@ -172,6 +172,12 @@ class UserController {
             })
           })
       }
+
+      static adminCheck(req, res) {
+        res.status(200).json({
+          admin: true
+        })
+      }
 }
 
 module.exports = UserController
