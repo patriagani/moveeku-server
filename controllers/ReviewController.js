@@ -15,10 +15,10 @@ class ReviewController {
             })
     }
 
-    static getUserReviews(req, res) {
-        Review.find({movie: req.params.userId})
-            .then(function(reviews) {
-                res.status(200).json(reviews)
+    static getReview(req, res) {
+        Review.findOne({_id: req.params.reviewId}).populate('movie')
+            .then(function(review) {
+                res.status(200).json(review)
             })
             .catch(function(error) {
                 res.status(500).json({

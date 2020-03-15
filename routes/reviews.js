@@ -5,10 +5,11 @@ const auth = require('../middlewares/auth')
 
 router.post('/', auth, ReviewController.createReview)
 
+router.get('/:reviewId', ReviewController.getReview)
+
 router.patch('/:reviewId', auth, ReviewController.updateReview)
 
 router.get('/movie/:movieId', ReviewController.getMovieReviews)
 
-router.get('/user/:userId', ReviewController.getUserReviews)
 
 module.exports = router

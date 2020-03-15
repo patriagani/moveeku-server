@@ -5,6 +5,8 @@ const auth = require('../middlewares/auth')
 
 router.get('/', auth, TransactionController.getTransaction)
 
+router.post('/', auth, TransactionController.createTransaction)
+
 router.patch('/:transactionId', auth, TransactionController.updateTransaction)
 
 module.exports = router
