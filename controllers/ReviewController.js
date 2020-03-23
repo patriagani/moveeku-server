@@ -3,7 +3,7 @@ const Review = require('../models/Review')
 class ReviewController {
 
     static getMovieReviews(req, res) {
-        Review.find({movie: req.params.movieId, published: true})
+        Review.find({movie: req.params.movieId, published: true}).populate('user')
             .then(function(reviews) {
                 res.status(200).json(reviews)
             })

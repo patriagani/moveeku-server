@@ -3,7 +3,7 @@ const Review = require('../models/Review')
 
 class TransactionController {
 
-    static getTransaction(req, res) {
+    static getTransactions(req, res) {
         Transaction.find({user: req.user._id}).populate('movie')
             .then(function(movies) {
                 res.status(200).json(movies)
@@ -15,6 +15,19 @@ class TransactionController {
                 })
             })
     }
+
+    static getTransaction(req, res) {
+      Transaction.findOne({_id: req.params.transactionId}).populate('movie')
+            .then(function(movie) {
+              res.status(200).json(movie)
+            })
+            .catch(function(error) {
+              res.status(500).json({
+                message: "Internal Server Error",
+                error: error.message
+              })
+            })
+  }
 
     static createTransaction(req, res) {
 
@@ -47,16 +60,24 @@ class TransactionController {
     }
 
     static updateTransaction(req, res) {
-        Transaction.findOneAndUpdate({_id: req.params.transactionId}, req.body, {new: true})
-          .then(function(movie) {
+      Transaction.findOne({_id: req.params.transactionId})
+        .then(function(movie) {
+          if(movie.playdate == undefined) {
+            return Transaction.findOneAndUpdate({_id: req.params.transactionId}, req.body, {new: true})
+          }
+          else{
             res.status(200).json(movie)
+          }
+        })
+        .then(function(movie) {
+          res.status(200).json(movie)
+        })
+        .catch(function(error) {
+          res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
           })
-          .catch(function(error) {
-            res.status(500).json({
-              message: "Internal Server Error",
-              error: error
-            })
-          })
+        })
     }
 
 }
