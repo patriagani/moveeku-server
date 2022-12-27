@@ -1,13 +1,11 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose');
+require('dotenv').config()
 const port = process.env.PORT || 3000
 
 //Connect mongodb via mongoose
-mongoose.connect('mongodb://localhost/moveeku');
-
-//dotenv config
-require('dotenv').config()
+mongoose.connect(process.env.MONGODB_URL);
 
 //Routes
 const indexRoute = require('./routes/index')
